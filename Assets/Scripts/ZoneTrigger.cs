@@ -2,14 +2,11 @@ using UnityEngine;
 
 public class ZoneTrigger : MonoBehaviour
 {
-    public string zoneID; // "Vending" or "Study"
-    public RiddleManager riddleManager;
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("RiddleToken"))
+        if (other.CompareTag("Cube"))
         {
-            riddleManager.OnZoneEntered(zoneID);
+            FindObjectOfType<RiddleManager>().OnCorrectZoneEntered();
         }
     }
 }

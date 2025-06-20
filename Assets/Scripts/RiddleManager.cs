@@ -1,65 +1,32 @@
 ﻿using UnityEngine;
 using TMPro;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class RiddleManager : MonoBehaviour
 {
-    public GameObject riddleCubePrefab;
+    public GameObject cubePrefab;
     public Transform cubeSpawnPoint;
-    public TextMeshProUGUI riddleText;
+    public TMP_Text riddleText;
+    public GameObject vendingZoneRoot;
 
-    public GameObject vendingZone;
-    public GameObject studyZone;
-
-    private int stage = 0;
-    private GameObject currentCube;
+    private bool riddleCompleted = false;
 
     void Start()
     {
-        ShowRiddle1();
+        vendingZoneRoot.SetActive(true);
+        riddleText.text = "Hungry minds, don't delay,\nFind the place with snacks on display.\nGrab the cube and walk this way,\nTo vending machines where students stay.";
         SpawnCube();
     }
 
-    public void OnZoneEntered(string zoneID)
+    public void OnCorrectZoneEntered()
     {
-        if (stage == 0 && zoneID == "Vending")
-        {
-            stage = 1;
-            ShowRiddle2();
-            SpawnCube();
-        }
-        else if (stage == 1 && zoneID == "Study")
-        {
-            stage = 2;
-            ShowFinalMessage();
-            if (currentCube != null)
-            {
-                Destroy(currentCube);
-            }
-        }
-    }
+        if (riddleCompleted) return;
 
-    void ShowRiddle1()
-    {
-        riddleText.text = "🔹 Enigma 1 – The Food Spot\nWelcome to HSLU's ground...\nPlace the cube in the vending spot!";
-    }
-
-    void ShowRiddle2()
-    {
-        riddleText.text = "🔹 Enigma 2 – The Study Zone\nGreat job, explorer...\nPlace it where monitors glow!";
-    }
-
-    void ShowFinalMessage()
-    {
-        riddleText.text = "🎉 You did it! Explorer level unlocked!";
+        riddleText.text = "🎉 Great job! You found the vending machine.";
+        riddleCompleted = true;
     }
 
     void SpawnCube()
     {
-        if (currentCube != null)
-        {
-            Destroy(currentCube);
-        }
-        currentCube = Instantiate(riddleCubePrefab, cubeSpawnPoint.position, Quaternion.identity);
+        Instantiate(cubePrefab, cubeSpawnPoint.position, Quaternion.identity);
     }
 }
