@@ -32,6 +32,10 @@ public class RiddleManager : MonoBehaviour
         {
             stage = 2;
             ShowFinalMessage();
+            if (currentCube != null)
+            {
+                Destroy(currentCube);
+            }
         }
     }
 
