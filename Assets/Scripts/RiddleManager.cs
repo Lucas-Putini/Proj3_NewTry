@@ -57,12 +57,5 @@ public class RiddleManager : MonoBehaviour
             Destroy(currentCube);
         }
         currentCube = Instantiate(riddleCubePrefab, cubeSpawnPoint.position, Quaternion.identity);
-
-        // Assign Interaction Manager reference
-        var grab = currentCube.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
-        if (grab != null)
-        {
-            grab.interactionManager = FindObjectOfType<XRInteractionManager>();
-        }
     }
 }
